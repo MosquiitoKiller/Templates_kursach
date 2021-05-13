@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Удаление тура</title>
+    <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Главная</a>
+    <a class="navbar-brand" href="/admin">Назад</a>
+</nav>
+<div class="text-center">
+    <form method="POST">
+        <h2>Удаление</h2>
+        <div>
+            <label>
+                <input type="number" name="id" placeholder="Id">
+                <small class="form-text text-muted">Введите id для удаления</small>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+    <h3 th:text="${deleteError}"></h3>
+    <h3 th:text="${deletedTour}"></h3>
+</div>
+</body>
+</html>

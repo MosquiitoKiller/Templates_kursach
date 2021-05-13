@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Изменение тура</title>
+    <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Главная</a>
+    <a class="navbar-brand" href="/admin">Назад</a>
+</nav>
+<div class="text-center">
+    <form method="POST">
+        <h2>Изменение</h2>
+        <div>
+            <label>
+                <input type="number" name="Id" placeholder="Id" autofocus="true" min="1">
+                <small class="form-text text-muted">Id изменяемого тура</small>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="text" name="start" placeholder="From">
+                <small class="form-text text-muted">Город отправления</small>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="text" name="finish" placeholder="To">
+                <small class="form-text text-muted">Город прибытия</small>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="number" name="price" value="0"/>
+                <small class="form-text text-muted">Цена тура</small>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="date" name="date"/>
+                <small class="form-text text-muted">Дата</small>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="number" name="count" value="-1">
+                <small class="form-text text-muted">Количество свободных мест</small>
+            </label>
+        </div>
+        <h2>Описание</h2>
+        <div>
+            <label>
+                <input type="text" name="img" placeholder="Image">
+                <small class="form-text text-muted">Ссылка на картинку</small>
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="text" name="text" placeholder="Text">
+                <small class="form-text text-muted">Ссылка на описание</small>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-warning">Изменить</button>
+    </form>
+    <h3 th:text="${editError}"></h3>
+
+</div>
+</body>
+</html>

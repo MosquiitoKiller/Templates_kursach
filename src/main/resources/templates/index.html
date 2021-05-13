@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<head xmlns:sec="http://www.w3.org/1999/xhtml">
+  <title>Arain Fly</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div>
+    <div class="dashboard_rules" sec:authorize="!isAuthenticated()">
+      <a class="navbar-brand" href="/login">Войти</a>
+      <a class="navbar-brand" href="/registration">Зарегистрироваться</a>
+    </div>
+    <div class="dashboard_rules" sec:authorize="isAuthenticated()">
+      <a class="navbar-brand" href="/lk">Личный кабинет</a>
+      <a class="navbar-brand" href="/logout">Выйти</a>
+    </div>
+    <a class="navbar-brand" href="/booking">Поиск туров</a>
+    <div class="dashboard_rules" sec:authorize="hasRole('MANAGER')">
+      <a class="navbar-brand" href="/manager">Работа с клиентами</a>
+    </div>
+    <div class="dashboard_rules" sec:authorize="hasRole('ADMIN')">
+      <a class="navbar-brand" href="/admin">Кабинет администратора</a>
+    </div>
+  </div>
+</nav>
+<div class="text-center">
+  Вы зашли на официальный сайт туристического агентства <b>Arain Fly</b><br>
+  Здесь вы можете подобрать для себя лучший тур, предоставляемый нашим агенством, в качестве которого можно даже не сомневаться
+</div>
+</body>
+</html>

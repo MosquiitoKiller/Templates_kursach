@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Пользователи</title>
+    <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/admin/find">Назад</a><br>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div class="text-center">
+    <table class="table table-bordered">
+        <thead>
+        <th scope="col">ID</th>
+        <th scope="col">UserName</th>
+        <th scope="col">Password</th>
+        <th scope="col">Email</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Tours</th>
+        </thead>
+        <th:block th:each="user: ${users}">
+            <tr>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.firstname}"></td>
+                <td th:text="${user.lastname}"></td>
+                <td>
+                    <th:block th:each="role: ${user.roles}"><h3 th:text="${role.name}+';'"></h3> </th:block>
+                </td>
+                <td>
+                    <th:block th:each="tour: ${user.tours}"><h3 th:text="${tour.id}"></h3></th:block>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

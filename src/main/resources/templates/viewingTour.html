@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Подробности</title>
+    <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/booking">Назад</a>
+    <a class="navbar-brand" href="/">Главная</a>
+</nav>
+<div class="text-center">
+    <img th:src="${image}"><br>
+    <h3 th:text="${characteristics}"></h3>
+    <h3 th:text="${description}"></h3>
+</div>
+<div class="text-center">
+    <form method="POST">
+        <div>
+            <label>
+                <input type="number" name="minusCount" min="1" value="0">
+            </label>
+        </div><!--
+        <input type="hidden" name="action" value="By"/>-->
+        <button type="submit" class="btn btn-success">Купить</button>
+    </form>
+    <h3 th:text="${ByError}"></h3>
+</div>
+</body>
+</html>

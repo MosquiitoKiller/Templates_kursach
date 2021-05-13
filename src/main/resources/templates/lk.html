@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LK</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Назад</a><br>
+        <a class="navbar-brand" href="/logout">Выйти</a>
+    </nav>
+    <h5 th:text="'Ник: '+${nickname}"></h5>
+    <h5 th:text="'Почта: '+${mail}"></h5>
+    <h5 th:text="'Имя: '+${name}"></h5>
+    <h5 th:text="'Фамилия: '+${lastname}"></h5>
+    <h5>
+        <th:block th:each="role: ${roles}">
+            <h5 th:text="'Роль: '+${role.name}"></h5>
+        </th:block>
+    </h5>
+    <th:block th:if="${count!=0}">
+        <table class="table table-bordered">
+            <thead>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Price</th>
+            <th scope="col">Date</th>
+            </thead>
+            <th:block th:each="tour: ${usersTours}">
+                <tr>
+                    <td th:text="${tour.getStart()}"></td>
+                    <td th:text="${tour.getFinish()}"></td>
+                    <td th:text="${tour.getPrice()}"></td>
+                    <td th:text="${tour.getDate()}"></td>
+                </tr>
+            </th:block>
+        </table>
+    </th:block>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <title>Окно Администратора</title>
+  <link rel="icon" href="https://drive.google.com/uc?export=view&id=13dCjpWflutbu6-9kRlxFd2BJMQAqAE1D">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Главная</a>
+  <a class="navbar-brand" href="admin/add">Создание</a>
+  <a class="navbar-brand" href="admin/find">Поиск</a>
+  <a class="navbar-brand" href="admin/edit">Изменение</a>
+  <a class="navbar-brand" href="admin/delete">Удаление</a>
+  <a class="navbar-brand" href="/actuator">Actuator</a>
+</nav>
+<div>
+
+  <table class="table table-bordered">
+    <thead>
+    <th scope="col">ID</th>
+    <th scope="col">UserName</th>
+    <th scope="col">Password</th>
+    <th scope="col">Email</th>
+    <th scope="col">FirstName</th>
+    <th scope="col">LastName</th>
+    <th scope="col">Roles</th>
+    <th scope="col">Tours</th>
+    </thead>
+    <th:block th:each="user: ${allUsers}">
+      <tr>
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getFirstname()}"></td>
+        <td th:text="${user.getLastname()}"></td>
+        <td>
+          <th:block th:each="role: ${user.getRoles()}"><h5 th:text="${role.getName()} + ';'"></h5> </th:block>
+        </td>
+        <td>
+          <th:block th:each="tour: ${user.getTours}"><h5 th:text="${tour.getId()}"></h5></th:block>
+        </td>
+        <td>
+          <form method="post">
+            <input type="hidden" name="userId" th:value="${user.getId()}"/>
+            <input type="hidden" name="action" th:value="delete"/>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+
+        </td>
+
+      </tr>
+    </th:block>
+  </table>
+</div>
+</body>
+</html>

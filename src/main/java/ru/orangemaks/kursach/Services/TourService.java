@@ -1,6 +1,7 @@
 package ru.orangemaks.kursach.Services;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.orangemaks.kursach.Models.Tour;
@@ -13,6 +14,7 @@ import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Slf4j
 @Service
 @Transactional
 public class TourService {
@@ -30,6 +32,7 @@ public class TourService {
         Date currentDate = new Date();
         Date twoDate = new SimpleDateFormat("yyyy-MM-dd").parse(tour.getDate());
         if (twoDate.before(currentDate)||tour.getPrice()<=0||tour.getCount()<0){
+            log.info("incorrect add tour");
             return false;
         }
         else {
@@ -38,19 +41,23 @@ public class TourService {
         }
     }
 
-    public boolean save(Tour tour){
+    public void save(Tour tour){
         tourRepository.save(tour);
-        return true;
     }
 
     @SneakyThrows
     public boolean editTour(EditRequest editRequest){
-        if(editRequest.getId()==null) return false;
+        log.info("edit tour");
+        if(editRequest.getId()==null){
+            log.info("empty field id");
+            return false;
+        }
         Optional<Tour> tour = tourRepository.findById(editRequest.getId());
         System.out.println(editRequest.toString());
         boolean editTour=false;
         boolean editDescr=false;
-        if(!tour.isPresent()){
+        if(tour.isEmpty()){
+            log.info("Not found tour with id="+editRequest.getId());
             return false;
         }
         if (!editRequest.getStart().equals("")){
@@ -69,6 +76,7 @@ public class TourService {
             Date currentDate = new Date();
             Date twoDate = new SimpleDateFormat("yyyy-MM-dd").parse(editRequest.getDate());
             if (twoDate.before(currentDate)){
+                log.info("incorrect date");
                 return false;
             }
             else {
@@ -95,19 +103,17 @@ public class TourService {
         return true;
     }
 
-    public Tour findTour(String start, String finish, String date){
-        return tourRepository.findByStartAndFinishAndDate(start, finish, date);
-    }
-
     public Tour findById(Long id){
         Optional<Tour> tour = tourRepository.findById(id);
         return tour.get();
     }
 
     public Tour deleteTour(Long id){
+        log.info("delete tour");
         if (id == null) return null;
         Optional<Tour> tourOP = tourRepository.findById(id);
-        if(!tourOP.isPresent()){
+        if(tourOP.isEmpty()){
+            log.info("Not found tour with id="+id);
             return null;
         }
         Tour tour = tourOP.get();

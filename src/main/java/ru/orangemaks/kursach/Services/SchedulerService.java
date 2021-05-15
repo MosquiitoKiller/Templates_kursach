@@ -1,6 +1,7 @@
 package ru.orangemaks.kursach.Services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
@@ -13,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Slf4j
 @Component
 @Service
 @RequiredArgsConstructor
@@ -23,16 +25,16 @@ public class SchedulerService {
     @Autowired
     TourDescriptionService tourDescriptionService;
 
-    @Scheduled(cron = "0 0/30 * * * *")//fixedRate=60000
+    @Scheduled(cron = "0 0 0 0/1 * *")//fixedRate=60000
     @ManagedOperation(description = "Deleting unused tours with an expired date")
     public void deleteTour() throws ParseException {
         List<Tour> tours = tourService.getAll();
         Date currentDate = new Date();
         Date twoDate;
-
+        log.info("======SchedulerService======");
         for (Tour t : tours) {
             twoDate = new SimpleDateFormat("yyyy-MM-dd").parse(t.getDate());
-            System.out.println(currentDate+"\n"+twoDate);
+            log.info("currentDate = "+currentDate+"\nTourDate = "+twoDate);
             if (twoDate.before(currentDate)){
                 if(t.getUsers()!=null){
                     t.setCount(0);

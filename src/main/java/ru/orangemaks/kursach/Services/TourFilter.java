@@ -1,5 +1,6 @@
 package ru.orangemaks.kursach.Services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.orangemaks.kursach.Models.Tour;
@@ -13,6 +14,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Slf4j
 @Component
 @Transactional
 public class TourFilter {
@@ -23,7 +25,9 @@ public class TourFilter {
     private EntityManager em;
 
     public List<Tour> filterTour(String start, String finish, String date, int count) {
+        log.info("Start filtration: Start="+start+" finish="+finish+" date="+date+" count="+count);
         if(start.equals("") && finish.equals("") && date.equals("") && count<=0){
+            log.info("all form fields are empty");
             return tourService.getAll();
         }
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -60,6 +64,7 @@ public class TourFilter {
             }
             return 0;
         });
+        log.info("end filtration");
         return tours;
     }
 }

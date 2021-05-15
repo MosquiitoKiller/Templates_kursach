@@ -1,5 +1,6 @@
 package ru.orangemaks.kursach.Services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional
 public class UserService implements UserDetailsService {
@@ -51,10 +53,13 @@ public class UserService implements UserDetailsService {
     }
 
     public String saveUser(User user) {
+        log.info("saveUser "+user.getUsername()+" "+user.getEmail());
         if (userRepository.findByUsername(user.getUsername()) != null) {
+            log.info("user with this username already exist");
             return "Пользователь с таким именем уже существует";
         }
         if(userRepository.findByEmail(user.getEmail())!=null){
+            log.info("user with this email already exist");
             return "Пользователь с таким Email уже существует";
         }
 
@@ -65,10 +70,13 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean deleteUser(Long userId) {
+        log.info("delete user with id="+userId);
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
+            log.info("user successfully deleted");
             return true;
         }
+        log.info("Not found user");
         return false;
     }
 
